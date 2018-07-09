@@ -1,0 +1,56 @@
+.myGridClass {
+  font-size: 1em;
+  width:auto;
+  background-color: #fff;
+  margin: 5px 0 10px 0;
+  /*border: solid 1px #525252;*/
+  /*border-collapse:collapse;*/
+}
+
+/*data elements*/
+.myGridClass td {
+  padding: 5px;
+  border: solid 1px #ECECEC !important;
+  background-color: #FFF;
+  /*color: #717171;*/
+  vertical-align:middle;
+}
+
+/*header elements*/
+.myGridClass th {
+  padding: 8px 5px;
+  /*color: #fff;*/
+  background-color:#D0D0D0;
+  /*text-transform:uppercase;*/
+  text-align:center;
+  vertical-align:middle;
+  border-left: solid 1px #ECECEC !important;
+}
+
+/*his will be the color of even row*/
+.myAltRowClass {
+    color:#000;
+    background-color:#F6F6F6;
+}
+.myAltRowClass td {
+    /*border: solid 1px #FCFCFC !important;*/
+    color:#000;
+    background-color:#F2F2F2;
+}
+/*and finally, we style the pager on the bottom*/
+.myGridClass .myPagerClass { background: #424242; }
+
+.myGridClass .myPagerClass table { margin: 5px 0; }
+
+.myGridClass .myPagerClass td {
+  border-width: 0;
+  padding: 0 6px;
+  border-left: solid 1px #666;
+  font-weight: bold;
+  color: #fff;
+  line-height: 12px;
+}
+
+.myGridClass .myPagerClass a { color: #666; text-decoration: none; }
+
+.myGridClass .myPagerClass a:hover { color: #000; text-decoration: none; } 

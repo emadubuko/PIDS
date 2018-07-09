@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsCCI" targetNamespace="http://tempuri.org/dsCCI.xsd" xmlns:mstns="http://tempuri.org/dsCCI.xsd" xmlns="http://tempuri.org/dsCCI.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="mssqlConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="mssqlConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.mssqlConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="qry_report_cciTableAdapter" GeneratorDataComponentClassName="qry_report_cciTableAdapter" Name="qry_report_cci" UserDataComponentName="qry_report_cciTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="mssqlConnectionString (Web.config)" DbObjectName="pids.dbo.qry_report_cci" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT* FROM dbo.qry_report_cci</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="nxp_no" DataSetColumn="nxp_no" />
+              <Mapping SourceColumn="rfi_no" DataSetColumn="rfi_no" />
+              <Mapping SourceColumn="cci_no" DataSetColumn="cci_no" />
+              <Mapping SourceColumn="consignor_name" DataSetColumn="consignor_name" />
+              <Mapping SourceColumn="consignor_address" DataSetColumn="consignor_address" />
+              <Mapping SourceColumn="bank_name" DataSetColumn="bank_name" />
+              <Mapping SourceColumn="bank_address" DataSetColumn="bank_address" />
+              <Mapping SourceColumn="consignor_rc_no" DataSetColumn="consignor_rc_no" />
+              <Mapping SourceColumn="consignee_name" DataSetColumn="consignee_name" />
+              <Mapping SourceColumn="consignee_address" DataSetColumn="consignee_address" />
+              <Mapping SourceColumn="crude_type_desc" DataSetColumn="crude_type_desc" />
+              <Mapping SourceColumn="nxp_qty" DataSetColumn="nxp_qty" />
+              <Mapping SourceColumn="measurement_unit_desc" DataSetColumn="measurement_unit_desc" />
+              <Mapping SourceColumn="nxp_unit_price" DataSetColumn="nxp_unit_price" />
+              <Mapping SourceColumn="nxp_fob_value" DataSetColumn="nxp_fob_value" />
+              <Mapping SourceColumn="packaging_desc" DataSetColumn="packaging_desc" />
+              <Mapping SourceColumn="currency_desc" DataSetColumn="currency_desc" />
+              <Mapping SourceColumn="pia_unit_price" DataSetColumn="pia_unit_price" />
+              <Mapping SourceColumn="barrels_net_qty" DataSetColumn="barrels_net_qty" />
+              <Mapping SourceColumn="vessel_name" DataSetColumn="vessel_name" />
+              <Mapping SourceColumn="bill_of_lading_no" DataSetColumn="bill_of_lading_no" />
+              <Mapping SourceColumn="bill_of_lading_date" DataSetColumn="bill_of_lading_date" />
+              <Mapping SourceColumn="departure_port_desc" DataSetColumn="departure_port_desc" />
+              <Mapping SourceColumn="destination_name" DataSetColumn="destination_name" />
+              <Mapping SourceColumn="ness_fee_paid_dollar" DataSetColumn="ness_fee_paid_dollar" />
+              <Mapping SourceColumn="pia_exchange_rate" DataSetColumn="pia_exchange_rate" />
+              <Mapping SourceColumn="cci_issue_date" DataSetColumn="cci_issue_date1" />
+              <Mapping SourceColumn="method_of_payment" DataSetColumn="method_of_payment1" />
+              <Mapping SourceColumn="exporter_invoice_no" DataSetColumn="exporter_invoice_no1" />
+              <Mapping SourceColumn="exporter_invoice_date" DataSetColumn="exporter_invoice_date1" />
+              <Mapping SourceColumn="forex_proceed_dollar" DataSetColumn="forex_proceed_dollar1" />
+              <Mapping SourceColumn="hs_code" DataSetColumn="hs_code" />
+              <Mapping SourceColumn="pia_fob_value_dollar" DataSetColumn="pia_fob_value_dollar" />
+              <Mapping SourceColumn="pia_fob_value_word_dollar" DataSetColumn="pia_fob_value_word_dollar" />
+              <Mapping SourceColumn="exporter_fob_value_word_dollar" DataSetColumn="exporter_fob_value_word_dollar" />
+              <Mapping SourceColumn="exporter_unit_price_ness" DataSetColumn="exporter_unit_price_ness" />
+              <Mapping SourceColumn="exporter_fob_value_dollar" DataSetColumn="exporter_fob_value_dollar" />
+              <Mapping SourceColumn="default_fob_value" DataSetColumn="default_fob_value" />
+              <Mapping SourceColumn="default_fob_value_word" DataSetColumn="default_fob_value_word" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsCCI" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="False" msprop:Generator_DataSetName="dsCCI" msprop:Generator_UserDSName="dsCCI">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="qry_report_cci" msprop:Generator_TableClassName="qry_report_cciDataTable" msprop:Generator_TableVarName="tableqry_report_cci" msprop:Generator_TablePropName="qry_report_cci" msprop:Generator_RowDeletingName="qry_report_cciRowDeleting" msprop:Generator_RowChangingName="qry_report_cciRowChanging" msprop:Generator_RowEvHandlerName="qry_report_cciRowChangeEventHandler" msprop:Generator_RowDeletedName="qry_report_cciRowDeleted" msprop:Generator_UserTableName="qry_report_cci" msprop:Generator_RowChangedName="qry_report_cciRowChanged" msprop:Generator_RowEvArgName="qry_report_cciRowChangeEvent" msprop:Generator_RowClassName="qry_report_cciRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nxp_no" msprop:Generator_ColumnVarNameInTable="columnnxp_no" msprop:Generator_ColumnPropNameInRow="nxp_no" msprop:Generator_ColumnPropNameInTable="nxp_noColumn" msprop:Generator_UserColumnName="nxp_no" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="rfi_no" msprop:Generator_ColumnVarNameInTable="columnrfi_no" msprop:Generator_ColumnPropNameInRow="rfi_no" msprop:Generator_ColumnPropNameInTable="rfi_noColumn" msprop:Generator_UserColumnName="rfi_no" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="cci_no" msprop:Generator_ColumnVarNameInTable="columncci_no" msprop:Generator_ColumnPropNameInRow="cci_no" msprop:Generator_ColumnPropNameInTable="cci_noColumn" msprop:Generator_UserColumnName="cci_no" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="cci_issue_date" msprop:Generator_ColumnVarNameInTable="columncci_issue_date" msprop:Generator_ColumnPropNameInRow="cci_issue_date" msprop:Generator_ColumnPropNameInTable="cci_issue_dateColumn" msprop:Generator_UserColumnName="cci_issue_date" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="consignor_name" msprop:Generator_ColumnVarNameInTable="columnconsignor_name" msprop:Generator_ColumnPropNameInRow="consignor_name" msprop:Generator_ColumnPropNameInTable="consignor_nameColumn" msprop:Generator_UserColumnName="consignor_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="consignor_address" msprop:Generator_ColumnVarNameInTable="columnconsignor_address" msprop:Generator_ColumnPropNameInRow="consignor_address" msprop:Generator_ColumnPropNameInTable="consignor_addressColumn" msprop:Generator_UserColumnName="consignor_address" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bank_name" msprop:Generator_ColumnVarNameInTable="columnbank_name" msprop:Generator_ColumnPropNameInRow="bank_name" msprop:Generator_ColumnPropNameInTable="bank_nameColumn" msprop:Generator_UserColumnName="bank_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bank_address" msprop:Generator_ColumnVarNameInTable="columnbank_address" msprop:Generator_ColumnPropNameInRow="bank_address" msprop:Generator_ColumnPropNameInTable="bank_addressColumn" msprop:Generator_UserColumnName="bank_address" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="consignor_rc_no" msprop:Generator_ColumnVarNameInTable="columnconsignor_rc_no" msprop:Generator_ColumnPropNameInRow="consignor_rc_no" msprop:Generator_ColumnPropNameInTable="consignor_rc_noColumn" msprop:Generator_UserColumnName="consignor_rc_no" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="method_of_payment" msprop:Generator_ColumnVarNameInTable="columnmethod_of_payment" msprop:Generator_ColumnPropNameInRow="method_of_payment" msprop:Generator_ColumnPropNameInTable="method_of_paymentColumn" msprop:Generator_UserColumnName="method_of_payment" type="xs:decimal" minOccurs="0" />
+              <xs:element name="consignee_name" msprop:Generator_ColumnVarNameInTable="columnconsignee_name" msprop:Generator_ColumnPropNameInRow="consignee_name" msprop:Generator_ColumnPropNameInTable="consignee_nameColumn" msprop:Generator_UserColumnName="consignee_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="consignee_address" msprop:Generator_ColumnVarNameInTable="columnconsignee_address" msprop:Generator_ColumnPropNameInRow="consignee_address" msprop:Generator_ColumnPropNameInTable="consignee_addressColumn" msprop:Generator_UserColumnName="consignee_address" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="crude_type_desc" msprop:Generator_ColumnVarNameInTable="columncrude_type_desc" msprop:Generator_ColumnPropNameInRow="crude_type_desc" msprop:Generator_ColumnPropNameInTable="crude_type_descColumn" msprop:Generator_UserColumnName="crude_type_desc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nxp_qty" msprop:Generator_ColumnVarNameInTable="columnnxp_qty" msprop:Generator_ColumnPropNameInRow="nxp_qty" msprop:Generator_ColumnPropNameInTable="nxp_qtyColumn" msprop:Generator_UserColumnName="nxp_qty" type="xs:decimal" minOccurs="0" />
+              <xs:element name="measurement_unit_desc" msprop:Generator_ColumnVarNameInTable="columnmeasurement_unit_desc" msprop:Generator_ColumnPropNameInRow="measurement_unit_desc" msprop:Generator_ColumnPropNameInTable="measurement_unit_descColumn" msprop:Generator_UserColumnName="measurement_unit_desc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nxp_unit_price" msprop:Generator_ColumnVarNameInTable="columnnxp_unit_price" msprop:Generator_ColumnPropNameInRow="nxp_unit_price" msprop:Generator_ColumnPropNameInTable="nxp_unit_priceColumn" msprop:Generator_UserColumnName="nxp_unit_price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="nxp_fob_value" msprop:Generator_ColumnVarNameInTable="columnnxp_fob_value" msprop:Generator_ColumnPropNameInRow="nxp_fob_value" msprop:Generator_ColumnPropNameInTable="nxp_fob_valueColumn" msprop:Generator_UserColumnName="nxp_fob_value" type="xs:decimal" minOccurs="0" />
+              <xs:element name="packaging_desc" msprop:Generator_ColumnVarNameInTable="columnpackaging_desc" msprop:Generator_ColumnPropNameInRow="packaging_desc" msprop:Generator_ColumnPropNameInTable="packaging_descColumn" msprop:Generator_UserColumnName="packaging_desc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="currency_desc" msprop:Generator_ColumnVarNameInTable="columncurrency_desc" msprop:Generator_ColumnPropNameInRow="currency_desc" msprop:Generator_ColumnPropNameInTable="currency_descColumn" msprop:Generator_UserColumnName="currency_desc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="pia_unit_price" msprop:Generator_ColumnVarNameInTable="columnpia_unit_price" msprop:Generator_ColumnPropNameInRow="pia_unit_price" msprop:Generator_ColumnPropNameInTable="pia_unit_priceColumn" msprop:Generator_UserColumnName="pia_unit_price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="exporter_invoice_no" msprop:Generator_ColumnVarNameInTable="columnexporter_invoice_no" msprop:Generator_ColumnPropNameInRow="exporter_invoice_no" msprop:Generator_ColumnPropNameInTable="exporter_invoice_noColumn" msprop:Generator_UserColumnName="exporter_invoice_no" type="xs:decimal" minOccurs="0" />
+              <xs:element name="exporter_invoice_date" msprop:Generator_ColumnVarNameInTable="columnexporter_invoice_date" msprop:Generator_ColumnPropNameInRow="exporter_invoice_date" msprop:Generator_ColumnPropNameInTable="exporter_invoice_dateColumn" msprop:Generator_UserColumnName="exporter_invoice_date" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="barrels_net_qty" msprop:Generator_ColumnVarNameInTable="columnbarrels_net_qty" msprop:Generator_ColumnPropNameInRow="barrels_net_qty" msprop:Generator_ColumnPropNameInTable="barrels_net_qtyColumn" msprop:Generator_UserColumnName="barrels_net_qty" type="xs:decimal" minOccurs="0" />
+              <xs:element name="vessel_name" msprop:Generator_ColumnVarNameInTable="columnvessel_name" msprop:Generator_ColumnPropNameInRow="vessel_name" msprop:Generator_ColumnPropNameInTable="vessel_nameColumn" msprop:Generator_UserColumnName="vessel_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bill_of_lading_no" msprop:Generator_ColumnVarNameInTable="columnbill_of_lading_no" msprop:Generator_ColumnPropNameInRow="bill_of_lading_no" msprop:Generator_ColumnPropNameInTable="bill_of_lading_noColumn" msprop:Generator_UserColumnName="bill_of_lading_no" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bill_of_lading_date" msprop:Generator_ColumnVarNameInTable="columnbill_of_lading_date" msprop:Generator_ColumnPropNameInRow="bill_of_lading_date" msprop:Generator_ColumnPropNameInTable="bill_of_lading_dateColumn" msprop:Generator_UserColumnName="bill_of_lading_date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="departure_port_desc" msprop:Generator_ColumnVarNameInTable="columndeparture_port_desc" msprop:Generator_ColumnPropNameInRow="departure_port_desc" msprop:Generator_ColumnPropNameInTable="departure_port_descColumn" msprop:Generator_UserColumnName="departure_port_desc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="destination_name" msprop:Generator_ColumnVarNameInTable="columndestination_name" msprop:Generator_ColumnPropNameInRow="destination_name" msprop:Generator_ColumnPropNameInTable="destination_nameColumn" msprop:Generator_UserColumnName="destination_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ness_fee_paid_dollar" msprop:Generator_ColumnVarNameInTable="columnness_fee_paid_dollar" msprop:Generator_ColumnPropNameInRow="ness_fee_paid_dollar" msprop:Generator_ColumnPropNameInTable="ness_fee_paid_dollarColumn" msprop:Generator_UserColumnName="ness_fee_paid_dollar" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pia_exchange_rate" msprop:Generator_ColumnVarNameInTable="columnpia_exchange_rate" msprop:Generator_ColumnPropNameInRow="pia_exchange_rate" msprop:Generator_ColumnPropNameInTable="pia_exchange_rateColumn" msprop:Generator_UserColumnName="pia_exchange_rate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="forex_proceed_dollar" msprop:Generator_ColumnVarNameInTable="columnforex_proceed_dollar" msprop:Generator_ColumnPropNameInRow="forex_proceed_dollar" msprop:Generator_ColumnPropNameInTable="forex_proceed_dollarColumn" msprop:Generator_UserColumnName="forex_proceed_dollar" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="cci_issue_date1" msdata:Caption="cci_issue_date" msprop:Generator_ColumnVarNameInTable="columncci_issue_date1" msprop:Generator_ColumnPropNameInRow="cci_issue_date1" msprop:Generator_ColumnPropNameInTable="cci_issue_date1Column" msprop:Generator_UserColumnName="cci_issue_date1" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="method_of_payment1" msdata:Caption="method_of_payment" msprop:Generator_ColumnVarNameInTable="columnmethod_of_payment1" msprop:Generator_ColumnPropNameInRow="method_of_payment1" msprop:Generator_ColumnPropNameInTable="method_of_payment1Column" msprop:Generator_UserColumnName="method_of_payment1" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="exporter_invoice_no1" msdata:Caption="exporter_invoice_no" msprop:Generator_ColumnVarNameInTable="columnexporter_invoice_no1" msprop:Generator_ColumnPropNameInRow="exporter_invoice_no1" msprop:Generator_ColumnPropNameInTable="exporter_invoice_no1Column" msprop:Generator_UserColumnName="exporter_invoice_no1" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="exporter_invoice_date1" msdata:Caption="exporter_invoice_date" msprop:Generator_ColumnVarNameInTable="columnexporter_invoice_date1" msprop:Generator_ColumnPropNameInRow="exporter_invoice_date1" msprop:Generator_ColumnPropNameInTable="exporter_invoice_date1Column" msprop:Generator_UserColumnName="exporter_invoice_date1" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="forex_proceed_dollar1" msdata:Caption="forex_proceed_dollar" msprop:Generator_ColumnVarNameInTable="columnforex_proceed_dollar1" msprop:Generator_ColumnPropNameInRow="forex_proceed_dollar1" msprop:Generator_ColumnPropNameInTable="forex_proceed_dollar1Column" msprop:Generator_UserColumnName="forex_proceed_dollar1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="hs_code" msprop:Generator_ColumnVarNameInTable="columnhs_code" msprop:Generator_ColumnPropNameInRow="hs_code" msprop:Generator_ColumnPropNameInTable="hs_codeColumn" msprop:Generator_UserColumnName="hs_code" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="pia_fob_value_dollar" msprop:Generator_ColumnVarNameInTable="columnpia_fob_value_dollar" msprop:Generator_ColumnPropNameInRow="pia_fob_value_dollar" msprop:Generator_ColumnPropNameInTable="pia_fob_value_dollarColumn" msprop:Generator_UserColumnName="pia_fob_value_dollar" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pia_fob_value_word_dollar" msprop:Generator_ColumnVarNameInTable="columnpia_fob_value_word_dollar" msprop:Generator_ColumnPropNameInRow="pia_fob_value_word_dollar" msprop:Generator_ColumnPropNameInTable="pia_fob_value_word_dollarColumn" msprop:Generator_UserColumnName="pia_fob_value_word_dollar" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="exporter_fob_value_word_dollar" msprop:Generator_ColumnVarNameInTable="columnexporter_fob_value_word_dollar" msprop:Generator_ColumnPropNameInRow="exporter_fob_value_word_dollar" msprop:Generator_ColumnPropNameInTable="exporter_fob_value_word_dollarColumn" msprop:Generator_UserColumnName="exporter_fob_value_word_dollar" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="exporter_unit_price_ness" msprop:Generator_ColumnVarNameInTable="columnexporter_unit_price_ness" msprop:Generator_ColumnPropNameInRow="exporter_unit_price_ness" msprop:Generator_ColumnPropNameInTable="exporter_unit_price_nessColumn" msprop:Generator_UserColumnName="exporter_unit_price_ness" type="xs:decimal" minOccurs="0" />
+              <xs:element name="exporter_fob_value_dollar" msprop:Generator_ColumnVarNameInTable="columnexporter_fob_value_dollar" msprop:Generator_ColumnPropNameInRow="exporter_fob_value_dollar" msprop:Generator_ColumnPropNameInTable="exporter_fob_value_dollarColumn" msprop:Generator_UserColumnName="exporter_fob_value_dollar" type="xs:decimal" minOccurs="0" />
+              <xs:element name="default_fob_value" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columndefault_fob_value" msprop:Generator_ColumnPropNameInRow="default_fob_value" msprop:Generator_ColumnPropNameInTable="default_fob_valueColumn" msprop:Generator_UserColumnName="default_fob_value" type="xs:decimal" minOccurs="0" />
+              <xs:element name="default_fob_value_word" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columndefault_fob_value_word" msprop:Generator_ColumnPropNameInRow="default_fob_value_word" msprop:Generator_ColumnPropNameInTable="default_fob_value_wordColumn" msprop:Generator_UserColumnName="default_fob_value_word" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

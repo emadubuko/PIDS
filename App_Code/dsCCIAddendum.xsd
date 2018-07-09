@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsCCIAddendum" targetNamespace="http://tempuri.org/dsCCIAddendum.xsd" xmlns:mstns="http://tempuri.org/dsCCIAddendum.xsd" xmlns="http://tempuri.org/dsCCIAddendum.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="mssqlConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="mssqlConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.mssqlConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="qry_report_cciTableAdapter" Name="qry_report_cci">
+            <MainSource>
+              <DbSource ConnectionRef="mssqlConnectionString (Web.config)" DbObjectName="pids.dbo.qry_report_cci" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT nxp_no, rfi_no, cci_no, cci_issue_date, consignor_name, consignor_address, bank_name, bank_address, consignor_rc_no, method_of_payment, consignee_name, consignee_address, crude_type_desc, nxp_qty, measurement_unit_desc, nxp_unit_price, nxp_fob_value, packaging_desc, currency_desc, pia_unit_price, exporter_invoice_no, exporter_invoice_date, barrels_net_qty, vessel_name, bill_of_lading_no, bill_of_lading_date, departure_port_desc, destination_name, ness_fee_paid_dollar, pia_exchange_rate, forex_proceed_dollar, hs_code FROM dbo.qry_report_cci</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="nxp_no" DataSetColumn="nxp_no" />
+              <Mapping SourceColumn="rfi_no" DataSetColumn="rfi_no" />
+              <Mapping SourceColumn="cci_no" DataSetColumn="cci_no" />
+              <Mapping SourceColumn="cci_issue_date" DataSetColumn="cci_issue_date" />
+              <Mapping SourceColumn="consignor_name" DataSetColumn="consignor_name" />
+              <Mapping SourceColumn="consignor_address" DataSetColumn="consignor_address" />
+              <Mapping SourceColumn="bank_name" DataSetColumn="bank_name" />
+              <Mapping SourceColumn="bank_address" DataSetColumn="bank_address" />
+              <Mapping SourceColumn="consignor_rc_no" DataSetColumn="consignor_rc_no" />
+              <Mapping SourceColumn="method_of_payment" DataSetColumn="method_of_payment" />
+              <Mapping SourceColumn="consignee_name" DataSetColumn="consignee_name" />
+              <Mapping SourceColumn="consignee_address" DataSetColumn="consignee_address" />
+              <Mapping SourceColumn="crude_type_desc" DataSetColumn="crude_type_desc" />
+              <Mapping SourceColumn="nxp_qty" DataSetColumn="nxp_qty" />
+              <Mapping SourceColumn="measurement_unit_desc" DataSetColumn="measurement_unit_desc" />
+              <Mapping SourceColumn="nxp_unit_price" DataSetColumn="nxp_unit_price" />
+              <Mapping SourceColumn="nxp_fob_value" DataSetColumn="nxp_fob_value" />
+              <Mapping SourceColumn="packaging_desc" DataSetColumn="packaging_desc" />
+              <Mapping SourceColumn="currency_desc" DataSetColumn="currency_desc" />
+              <Mapping SourceColumn="pia_unit_price" DataSetColumn="pia_unit_price" />
+              <Mapping SourceColumn="exporter_invoice_no" DataSetColumn="exporter_invoice_no" />
+              <Mapping SourceColumn="exporter_invoice_date" DataSetColumn="exporter_invoice_date" />
+              <Mapping SourceColumn="barrels_net_qty" DataSetColumn="barrels_net_qty" />
+              <Mapping SourceColumn="vessel_name" DataSetColumn="vessel_name" />
+              <Mapping SourceColumn="bill_of_lading_no" DataSetColumn="bill_of_lading_no" />
+              <Mapping SourceColumn="bill_of_lading_date" DataSetColumn="bill_of_lading_date" />
+              <Mapping SourceColumn="departure_port_desc" DataSetColumn="departure_port_desc" />
+              <Mapping SourceColumn="destination_name" DataSetColumn="destination_name" />
+              <Mapping SourceColumn="ness_fee_paid_dollar" DataSetColumn="ness_fee_paid_dollar" />
+              <Mapping SourceColumn="pia_exchange_rate" DataSetColumn="pia_exchange_rate" />
+              <Mapping SourceColumn="forex_proceed_dollar" DataSetColumn="forex_proceed_dollar" />
+              <Mapping SourceColumn="hs_code" DataSetColumn="hs_code" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsCCIAddendum" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="False">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="qry_report_cci">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nxp_no" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="rfi_no" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="cci_no" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="cci_issue_date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="consignor_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="consignor_address" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bank_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bank_address" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="consignor_rc_no" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="method_of_payment" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="consignee_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="consignee_address" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="crude_type_desc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nxp_qty" type="xs:decimal" minOccurs="0" />
+              <xs:element name="measurement_unit_desc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nxp_unit_price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="nxp_fob_value" type="xs:decimal" minOccurs="0" />
+              <xs:element name="packaging_desc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="currency_desc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="pia_unit_price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="exporter_invoice_no" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="exporter_invoice_date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="barrels_net_qty" type="xs:decimal" minOccurs="0" />
+              <xs:element name="vessel_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bill_of_lading_no" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="bill_of_lading_date" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="departure_port_desc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="destination_name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ness_fee_paid_dollar" type="xs:decimal" minOccurs="0" />
+              <xs:element name="pia_exchange_rate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="forex_proceed_dollar" type="xs:decimal" minOccurs="0" />
+              <xs:element name="hs_code" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

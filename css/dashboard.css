@@ -1,0 +1,39 @@
+﻿.dashboard{
+    max-width:800px;
+    margin:auto;
+}
+.user-tab div{
+    position:absolute;
+    bottom:10px;
+    left:0;
+    width:100%;
+    padding:5px;
+    background-color:#fff;
+    text-align:center;
+}
+.user-tab{
+    position:relative;
+    cursor:pointer;
+    display:block;
+    border-radius:8px;
+    padding:15px;
+    margin:-5px;
+    margin-bottom:20px;
+    height:150px;
+    /*background:#2980AC;*/
+    background:#d9dfe2;
+}
+.user-tab img{
+    display:block;
+    margin:auto;
+    height:150px;
+    max-height:80%;
+    max-width:90%;
+}
+.user-tab:hover{
+    background:#2F92C5;
+}
+.user-tab:hover div{
+    background:#ecf2f5;
+    color:#343434;  
+}

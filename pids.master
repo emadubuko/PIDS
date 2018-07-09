@@ -1,0 +1,531 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="pids.master.cs" Inherits="_PidsMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head runat="server">
+        <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="Shipment Inspection App">
+		<meta name="author" content="Barian Systems">
+		<meta name="keyword" content="shipping, web app">
+		<%--<link rel="shortcut icon" href="ico/favicon.png">--%>
+        <link rel="shortcut icon" href="ico/favicon.ico" /> 
+        <style>
+            .noborder{
+                border:none !important;
+                background-color:#fff;
+            }
+        </style>
+	    <title>PIDS</title>
+        <%--<base href="http://localhost/pids/" />--%>
+
+	    <!-- Bootstrap core CSS -->
+	    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	
+		<!-- Remove following comment to add Right to Left Support or add class rtl to body -->
+		<!-- <link href="css/bootstrap-rtl.min.css" rel="stylesheet"> -->
+		
+		<link href="css/jquery.mmenu.css" rel="stylesheet">
+		<link href="css/simple-line-icons.css" rel="stylesheet">
+		<link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/grid-view.css" rel="stylesheet">
+        <link href="css/others.css" rel="stylesheet">
+        
+		<!-- page css files -->
+        <link href="css/climacons-font.css" rel="stylesheet">
+		<link href="plugins/jquery-ui/jquery-ui-1.10.4.min.css" rel="stylesheet">
+		<link href="plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
+		<link href="plugins/morris/morris.css" rel="stylesheet">
+		<link href="plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+		<link href="plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+        <link href="plugins/datepicker/datepicker3.css" rel="stylesheet">
+        <link href="plugins/timepicker/bootstrap-timepicker.css" rel="stylesheet">
+        <link href="plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+		<link href="plugins/select2/select2.css" rel="stylesheet">
+		<link href="plugins/select2/select2-bootstrap.css" rel="stylesheet">
+        <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet">
+
+	    <!-- Custom styles for this template -->
+	    <link href="css/style.min.css" rel="stylesheet" type="text/css">
+		<link href="css/add-ons.min.css" rel="stylesheet">
+        
+		<!--[if !IE]>-->
+				<script src="js/jquery-2.1.1.min.js"></script>
+		<!--<![endif]-->
+        
+		<!--[if IE]>
+			<script src="js/jquery-1.11.1.min.js"></script>
+		<![endif]-->
+
+		<!--[if !IE]>-->
+			<script type="text/javascript">
+				window.jQuery || document.write("<script src='js/jquery-2.1.1.min.js'>"+"<"+"/script>");
+			</script>
+		<!--<![endif]-->
+
+		<!--[if IE]>
+			<script type="text/javascript">
+		 	window.jQuery || document.write("<script src='js/jquery-1.11.1.min.js'>"+"<"+"/script>");
+			</script>
+		<![endif]-->
+
+		<script src="js/jquery-migrate-1.2.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+
+        <asp:ContentPlaceHolder id="head" runat="server">
+        </asp:ContentPlaceHolder>
+    </head>
+    <body>
+
+        <form id="form1" runat="server" class="mm-page">
+            <!-- script manager here before-->
+            <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+            <!-- start: Header -->
+		    <div class="navbar" role="navigation">
+			    <div class="navbar-header">
+				    <a class="navbar-brand" href="./">
+					    <small>Welcome, Administrator</small>
+				    </a>
+			    </div>
+			    <ul class="nav navbar-nav navbar-actions navbar-left">
+				    <li class="visible-md visible-lg"><a href="#" id="main-menu-toggle"><i class="fa fa-bars"></i></a></li>
+				    <li class="visible-xs visible-sm"><a href="#" id="sidebar-menu"><i class="fa fa-bars"></i></a></li>
+			    </ul>
+			    <div class="navbar-form navbar-left">
+				    <i class="fa fa-search"></i>
+                    <asp:TextBox ID="TextBox1" CssClass="form-control" placeholder="Searching for something?" runat="server"></asp:TextBox>
+			    </div>
+	            <ul class="nav navbar-nav navbar-right visible-md visible-lg">
+				    <li><span class="timer"><i class="icon-clock"></i> <span id="clock"></span></span></li>
+				    <li class="dropdown visible-md visible-lg">
+	        		    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-envelope-letter"></i><span class="badge">0</span></a>
+	        		    <ul class="dropdown-menu">
+						    <li class="dropdown-menu-header">
+							    <strong>Messages</strong>
+							    <div class="progress thin">
+							      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="width: 1%">
+							        <span class="sr-only">1% Complete (success)</span>
+							      </div>
+							    </div>
+						    </li>
+						    <li class="avatar">
+							    <a href="#">
+								    <img class="avatar" src="img/avatar.jpg">
+								    <div>New message</div>
+								    <small>1 minute ago</small>
+								    <span class="label label-info">NEW</span>
+							    </a>
+						    </li>
+						    <li class="dropdown-menu-footer text-center">
+							    <a href="#">View all messages</a>
+						    </li>	
+	        		    </ul>
+	      		    </li>
+                    <li><a href="#"><i class="icon-speech"></i></a></li>
+				    <li class="dropdown visible-md visible-lg">
+	        		    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-settings"></i><span class="badge">!</span></a>
+	        		    <ul class="dropdown-menu">
+						    <li class="dropdown-menu-header text-center">
+							    <strong>Account</strong>
+						    </li>
+						    <li><a href="#"><i class="fa fa-bell-o"></i> Updates <span class="label label-info">0</span></a></li>
+						    <li><a href="#"><i class="fa fa-envelope-o"></i> Messages <span class="label label-success">0</span></a></li>
+						    <li><a href="#"><i class="fa fa-comments"></i> Requests <span class="label label-warning">26</span></a></li>
+						    <li class="dropdown-menu-header text-center">
+							    <strong>Settings</strong>
+						    </li>
+						    <li><a href="#" data-toggle="modal" data-target="#profileModal"><i class="fa fa-user"></i> Profile</a></li>
+						    <li><a href="#" data-toggle="modal" data-target="#passwordModal" ><i class="fa fa-lock"></i> Change Password</a></li>
+						    <li><asp:LinkButton ID="_Logout" OnClick="_Logout_Click" runat="server"><i class="icon-logout"></i> Logout</asp:LinkButton></li>	
+	        		    </ul>
+	      		    </li>
+			    </ul>
+		    </div>
+		    <!-- end: Header -->
+
+		    <!-- start: Main Menu -->
+		    <div class="sidebar">
+			    <div class="sidebar-collapse">
+				    <div class="sidebar-header">
+                        <asp:Image ID="Image2" runat="server" ImageUrl="img/client.png" Height="100%" Width="100%" />
+				    </div>
+                    <div class="sidebar-menu">	
+					    <ul class="nav nav-sidebar">
+                            <li>
+                                <asp:HyperLink ID="hplDashBoard" runat="server" NavigateUrl="~/dashboard">
+                                    <i class="fa fa-dashboard"></i><span class="text-nowrap text-capitalize"> My Dashboard</span>
+                                </asp:HyperLink>
+                            </li>
+						    <li>
+                                <asp:HyperLink ID="hplSysAdmin" runat="server" NavigateUrl="~/system-admin">
+                                    <i class="icon-settings"></i><span class="text-capitalize text-nowrap"> System Admin</span>
+                                </asp:HyperLink>
+                            </li>
+						    <li>
+                                <a href="#"><i class="icon-doc"></i><span class="text"> NXP</span> <span class="indicator"></span></a>
+                                <ul>
+                                    <li>
+                                        <asp:HyperLink ID="hplNXPNew" runat="server" NavigateUrl="~/nxp" Visible="false">
+                                            <i class="icon-doc"></i><span class="text-capitalize text-nowrap"> Create New NXP</span>
+                                        </asp:HyperLink>
+                                    </li>
+                                    <li>
+                                        <asp:HyperLink ID="hplNXPRegister" runat="server" NavigateUrl="~/nxp-register">
+                                            <i class="icon-book-open"></i><span class="text-capitalize text-nowrap"> NXP Register</span>
+                                        </asp:HyperLink>
+                                    </li>
+                                </ul>
+                            </li>
+						    <li>
+                                <a href="#"><i class="icon-note"></i><span class="text"> Inspection</span> <span class="indicator"></span></a>
+                                <ul>
+                                    <li>
+                                        <asp:HyperLink ID="hplInspNew" runat="server" NavigateUrl="~/inspection-finding">
+                                            <i class="icon-note"></i><span class="text-capitalize text-nowrap"> New Inspection</span>
+                                        </asp:HyperLink>
+                                    </li>
+                                    <li>
+                                        <asp:HyperLink ID="hplInspRegister" runat="server" NavigateUrl="~/inspection-register">
+                                            <i class="icon-book-open"></i><span class="text-capitalize text-nowrap"> Inspection Register</span>
+                                        </asp:HyperLink>
+                                    </li>
+                                </ul>
+                            </li>
+						    <li>
+                                <asp:HyperLink ID="hplDoc" runat="server" NavigateUrl="~/documentation">
+                                    <i class="icon-docs"></i><span class="text-nowrap text-capitalize"> Documentation</span>
+                                </asp:HyperLink>
+                            </li>
+						    <li>
+                                <asp:HyperLink ID="hplCCIMan" runat="server" NavigateUrl="~/cci-manager">
+                                    <i class="icon-badge"></i><span class="text-nowrap text-capitalize"> CCI Manager</span>
+                                </asp:HyperLink>
+                            </li>
+						    <li>
+                                <asp:HyperLink ID="hplInvMan" runat="server" NavigateUrl="~/invoice-manager">
+                                    <i class="icon-list"></i><span class="text-nowrap text-capitalize"> Invoice Manager</span>
+                                </asp:HyperLink>
+                            </li>
+						    <li>
+                                <a href="#"><i class="icon-refresh"></i><span class="text"> Reports</span> <span class="indicator"></span></a>
+                                <ul>
+                                    <li>
+                                        <asp:HyperLink ID="HyperLink8" runat="server" NavigateUrl="~/monthly-reports">
+                                            <i class=""></i><span class="text-capitalize text-nowrap"> Monthly Reports</span>
+                                        </asp:HyperLink>
+                                    </li>
+                                    <li>
+                                        <asp:HyperLink ID="HyperLink9" runat="server" NavigateUrl="~/quarterly-reports">
+                                            <i class=""></i><span class="text-capitalize text-nowrap"> Quarterly Report</span>
+                                        </asp:HyperLink>
+                                    </li>
+                                    <li>
+                                        <asp:HyperLink ID="HyperLink11" runat="server" NavigateUrl="#">
+                                            <i class=""></i><span class="text-capitalize text-nowrap"> Yearly Reports</span>
+                                        </asp:HyperLink>
+                                    </li>
+                                    <li>
+                                        <asp:HyperLink ID="HyperLink12" runat="server" NavigateUrl="~/differential-reports">
+                                            <i class=""></i><span class="text-capitalize text-nowrap"> Differential Reports</span>
+                                        </asp:HyperLink>
+                                    </li>
+                                </ul>
+                            </li>
+						    <li>
+                                <asp:HyperLink ID="hplUserMan" runat="server" NavigateUrl="#">
+                                    <i class="icon-users"></i><span class="text-nowrap text-capitalize">User Manager</span>
+                                </asp:HyperLink>
+                            </li>
+                            <!--
+						    <li>
+                                <asp:HyperLink ID="hplSysSett" runat="server" NavigateUrl="#">
+                                    <i class=" icon-support"></i><span class="text-nowrap text-capitalize">System Settings</span>
+                                </asp:HyperLink>
+                            </li>
+                            -->
+					    </ul>
+				    </div>					
+			    </div>
+			    <div class="sidebar-footer">
+				    <ul class="sidebar-actions">
+					    <li class="action">
+						    <div class="btn-group dropup">
+						  	    <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+						    	    <i class="icon-speedometer"></i><span>Usage</span>
+						    	    <span class="sr-only">Toggle Dropdown</span>
+						  	    </button>
+						  	    <ul class="dropdown-menu" role="menu">
+								    <li class="header">Summary <i class="icon-settings"></i></li>
+						    	    <li>
+									    <div class="title">Memory<span>?GB of 0GB</span></div>
+									    <div class="progress">
+										    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%"></div>
+									    </div>			
+								    </li>
+								    <li>
+									    <div class="title">HDD<span>?GB of 0TB</span></div>
+									    <div class="progress">
+									  	    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+									    </div>
+								    </li>
+								    <li>
+									    <div class="title">Bandwidth<span>?TB of 0TB</span></div>
+									    <div class="progress">
+								  		    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+									    </div>
+								    </li>
+							    </ul>
+						    </div>
+					    </li>
+                        <li class="action">
+						    <div class="btn-group dropup">
+						  	    <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+						    	    <i class="icon-user"></i><span>My Account</span>
+						    	    <span class="sr-only">Toggle Dropdown</span>
+						  	    </button>
+						  	    <ul class="dropdown-menu" role="menu">
+                                      <li><asp:LinkButton ID="LinkButton2" OnClick="_Logout_Click" runat="server"><i class="icon-logout"></i> Logout</asp:LinkButton></li>
+                                      <li class="divider"></li>
+                                      <li><a href="#" data-toggle="modal" data-target="#profileModal"><i class="fa fa-user"></i> My Profile</a></li>
+                                      <li><a href="#" data-toggle="modal" data-target="#passwordModal" ><i class="fa fa-lock"></i> Change Password</a></li>
+						  	    </ul>
+						    </div>
+					    </li>
+					    
+					    <li class="action">
+						    <div class="btn-group dropup">
+						  	    <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+						    	    <i class="icon-refresh"></i><span> Report</span>
+						    	    <span class="sr-only">Toggle Dropdown</span>
+						  	    </button>
+						  	    <ul class="dropdown-menu" role="menu">
+						    	    <li class="header">Analytics <i class="icon-settings"></i></li>
+					          	    <li><a href="monthly-reports"><span class="status status-success"></span> Monthly </a></li>
+					          	    <li><a href="quarterly-reports"><span class="status status-success"></span> Quarterly </a></li>
+					          	    <li><a href="yearly-reports"><span class="status status-success"></span> Yearly </a></li>
+                                    <li><a href="differential-reports"><span class="status status-success"></span> Differentials </a></li>
+						  	    </ul>
+						    </div>
+					    </li>
+				    </ul>
+
+				    <ul class="sidebar-terms">
+					    <li><a href="#">Terms</a></li>
+					    <li><a href="#">Help</a></li>
+					    <li><a href="#">About</a></li>
+				    </ul>	
+
+			    </div>	
+		    </div>
+		    <!-- end: Main Menu -->
+
+            <!--start: Content-->
+            <div class="main">
+                <asp:Panel ID="pnlAlert" runat="server" CssClass="alert alert-danger" Visible="false">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <span id="spIcon" runat="server"></span>
+                    <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
+                </asp:Panel>
+                <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+                </asp:ContentPlaceHolder>
+            </div>
+            <!--end: content-->
+            <footer>
+			    <div class="row">
+				    <div class="col-sm-5">
+					    &copy; Client Name
+				    </div>
+				    <div class="col-sm-7 text-right">
+					    Powered by: Vendor
+				    </div>
+			    </div>
+		    </footer>
+
+		    <div class="modal fade" id="myModal">
+			    <div class="modal-dialog">
+				    <div class="modal-content">
+					    <div class="modal-header">
+						    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						    <h4 class="modal-title"><i class="icon-settings"></i> Settings</h4>
+					    </div>
+					    <div class="modal-body">
+						    <p>configurations...</p>
+					    </div>
+					    <div class="modal-footer">
+						    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						    <button type="button" class="btn btn-primary">Save changes</button>
+					    </div>
+				    </div><!-- /.modal-content -->
+			    </div><!-- /.modal-dialog -->
+		    </div><!-- /.modal -->
+
+            <div class="modal fade" id="passwordModal">
+			    <div class="modal-dialog">
+				    <div class="modal-content">
+					    <div class="modal-header">
+						    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						    <h4 class="modal-title"><i class="icon-settings"></i> Change Password</h4>
+					    </div>
+					    <asp:Panel ID="pnlUpdPwd" runat="server" CssClass="modal-body">
+						    <div class="form-group">
+                                Current Password:
+                                <asp:TextBox ID="txtOldPassword" required="required" TextMode="Password" CssClass="form-control" runat="server"></asp:TextBox>
+						    </div>
+						    <div class="form-group">
+                                New Password:
+                                <asp:TextBox ID="txtNewPassword" TextMode="Password" required="required" CssClass="form-control" runat="server"></asp:TextBox>
+                                <asp:CompareValidator ID="cpvPwd" CssClass="text text-danger" ControlToCompare="txtNewPassword" ControlToValidate="txtReNewPassword" runat="server" ErrorMessage="Passwrod Mismatch"></asp:CompareValidator>
+						    </div>
+						    <div class="form-group">
+                                Re-New Password:
+                                <asp:TextBox ID="txtReNewPassword" TextMode="Password" CssClass="form-control" runat="server"></asp:TextBox>
+						    </div>
+					    </asp:Panel>
+					    <div class="modal-footer">
+                            <asp:LinkButton ID="lnkSavePassword" OnClick="lnkSavePassword_Click" CssClass="btn btn-primary" runat="server">
+                                <i class="fa fa-save"></i> Save Changes
+                            </asp:LinkButton>
+						    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					    </div>
+				    </div><!-- /.modal-content -->
+			    </div><!-- /.modal-dialog -->
+		    </div>
+
+            <div class="modal fade" id="profileModal">
+			    <div class="modal-dialog">
+				    <div class="modal-content">
+					    <div class="modal-header">
+						    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						    <h4 class="modal-title"><i class="icon-settings"></i> My Profile</h4>
+					    </div>
+					    <asp:Panel ID="Panel1" runat="server" CssClass="modal-body">
+						    <div class="form-group">
+                                Full name:
+                                <asp:TextBox ID="_prof1" required="required" CssClass="form-control" runat="server"></asp:TextBox>
+						    </div>
+						    <div class="form-group">
+                                Address:
+                                <asp:TextBox ID="_prof2" required="required" CssClass="form-control" runat="server"></asp:TextBox>
+						    </div>
+						    <div class="form-group">
+                                Telephone:
+                                <asp:TextBox ID="_prof3" CssClass="form-control" runat="server"></asp:TextBox>
+						    </div>
+					    </asp:Panel>
+					    <div class="modal-footer">
+                            <asp:LinkButton ID="LinkButton1" CssClass="btn btn-primary" runat="server">
+                                <i class="fa fa-save"></i> Save Changes
+                            </asp:LinkButton>
+						    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					    </div>
+				    </div><!-- /.modal-content -->
+			    </div><!-- /.modal-dialog -->
+		    </div>
+
+        </form>
+        
+
+        <!-- Remove following comment to add Right to Left Support or add class rtl to body -->
+		<!-- <link href="css/style.rtl.min.css" rel="stylesheet"> -->
+
+	    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+        
+        <!-- start: JavaScript-->	
+
+        <script src="plugins/jquery-ui/jquery-ui-1.10.4.min.js"></script> 
+		<script src="plugins/moment/moment.min.js"></script> 
+		<script src="plugins/flot/jquery.flot.min.js"></script> 
+		<script src="plugins/flot/jquery.flot.resize.min.js"></script> 
+		<script src="plugins/flot/jquery.flot.time.min.js"></script> 
+		<script src="plugins/flot/jquery.flot.spline.min.js"></script>
+		<script src="plugins/autosize/jquery.autosize.min.js"></script> 
+		<script src="plugins/placeholder/jquery.placeholder.min.js"></script> 
+		<script src="plugins/datatables/jquery.dataTables.min.js"></script> 
+		<script src="plugins/datatables/dataTables.bootstrap.min.js"></script> 
+		<script src="plugins/raphael/raphael.min.js"></script> 
+		<script src="plugins/morris/morris.min.js"></script> 
+		<%--<script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script> 
+		<script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script> 
+		<script src="plugins/jvectormap/gdp-data.js"></script>--%>
+        <script src="plugins/wysiwyg/bootstrap-wysiwyg.min.js"></script>
+		<script src="plugins/gauge/gauge.min.js"></script>
+		<script src="plugins/daterangepicker/daterangepicker.min.js"></script>
+		<script src="plugins/datepicker/bootstrap-datepicker.min.js"></script>
+        <script src="plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+		<script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
+
+		<script src="plugins/select2/select2.min.js"></script>
+		<script src="plugins/maskedinput/jquery.maskedinput.min.js"></script>
+		<script src="plugins/inputlimiter/jquery.inputlimiter.1.3.1.min.js"></script>
+        <script src="plugins/hotkeys/jquery.hotkeys.min.js"></script>
+
+
+		<!-- theme scripts -->
+		<script src="plugins/pace/pace.min.js"></script>
+		<script src="js/jquery.mmenu.min.js"></script>
+		<script src="js/core.min.js"></script>
+        <script src="js/jquery.number.js"></script>
+        <script src="js/form-ctrls.js"></script>
+		
+	    <!-- inline scripts related to this page -->
+		<script src="plugins/jquery-cookie/jquery.cookie.min.js"></script>
+
+        <!-- convert number to words 
+        <script src="js/numberToWords.min.js"></script>
+        <script src="js/toWords.js"></script>-->
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.date').datepicker({
+                    format: "mm/dd/yyyy"
+                });
+                $('.datetime').datepicker({
+                    format: "mm/dd/yyyy"
+                });
+
+                $('.datetime1').datetimepicker({
+                    icons: {
+                        time: "fa fa-clock-o",
+                        date: "fa fa-calendar",
+                        up: "fa fa-arrow-up",
+                        down: "fa fa-arrow-down",
+                        next: "fa fa-arrow-right",
+                        previous: "fa fa-arrow-left"
+                    },
+                    minDate: "10/15/2013"
+                });
+
+                //$('.numbertowords').inWords({
+                //    format: 'roundedTo2Decimal', // Eg. rounded,roundedTo2Decimal
+                //    INRCaption: 'true',              // by default true
+                //    prefix: '',
+                //    suffix: ' only.'
+                //});
+
+                $(".number").number(true);
+                $(".decimal1").number(true, 1);
+                $(".decimal2").number(true, 2);
+                $(".decimal3").number(true, 3);
+                $(".decimal4").number(true, 4);
+                $(".decimal5").number(true, 5);
+                $(".decimal6").number(true, 6);
+            });
+        </script>
+               
+        <!-- end: JavaScript-->
+        <asp:ContentPlaceHolder id="foot" runat="server">
+        
+        </asp:ContentPlaceHolder>
+        <!--
+        <div id="mm-blocker"></div>
+        <div id="limiterBox" class="limiterBox" style="position: absolute; display: none;"></div>
+        -->
+    </body>
+</html>
