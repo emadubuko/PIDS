@@ -73,7 +73,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <asp:Button ID="lbLogin" runat="server" CommandName="Login" OnClick="lbLogin_Click" CssClass="btn btn-primary col-sm-12" Text="Login" ValidationGroup="LoginUserValidationGroup" />
+                            <asp:Button ID="lbLogin" runat="server" CommandName="Login" OnClick="lbLogin_Click" CssClass="btn btn-primary col-sm-12" Text="Log in" ValidationGroup="LoginUserValidationGroup" />
                             <asp:Label ID="lblMessage" runat="server" CssClass="text-danger"></asp:Label>
                         </fieldset>                        
                     </form>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -8,6 +9,8 @@ using PIDSLibrary;
 public partial class _ReportMonthly : Page
 {
     TransactionModel objTrans = new TransactionModel();
+
+    public bool tableLoaded = false;
 
     private void DisplaySuccess(String sMessage)
     {
@@ -61,18 +64,14 @@ public partial class _ReportMonthly : Page
         {
             if(Page.IsPostBack==false)
             {
-                objTrans.PopulateLists(ref ddlYear, "GET_YEAR");
-                objTrans.PopulateLists(ref ddlMonth, "GET_MONTH");
-                ddlYear.SelectedValue = DateTime.Now.Year.ToString();
-                ddlMonth.SelectedValue = DateTime.Now.Month.ToString();
-                objTrans.PopulateLists(ref ddlReport, "GET_REPORT_MONTHLY");
+                //objTrans.PopulateLists(ref ddlYear, "GET_YEAR");
+                //objTrans.PopulateLists(ref ddlMonth, "GET_MONTH");
+                //ddlYear.SelectedValue = DateTime.Now.Year.ToString();
+                //ddlMonth.SelectedValue = DateTime.Now.Month.ToString();
+                //objTrans.PopulateLists(ref ddlReport, "GET_REPORT_MONTHLY");
+                new DTO().PopulateReportField(ref ddlReport);
             }
-
-            //if (!Page.IsPostBack)
-            //{
-            //    BindEnumToListControls(typeof(SeriesChartType), ddlCharType);
-            //}
-
+             
         }
         catch(Exception ex)
         {
@@ -83,41 +82,56 @@ public partial class _ReportMonthly : Page
     {
         try
         {
-            objTrans.ReportID = int.Parse(ddlReport.SelectedValue);
-            if(objTrans.getReport()==false)
-            {
-                DisplayError(objTrans.ErrorMessage);
-                return;
-            }
+            string reportCmd = ddlReport.SelectedValue;
 
-            DataSet ds = objTrans.getMonthlyReportData(int.Parse(ddlMonth.SelectedValue), int.Parse(ddlYear.SelectedValue));
-            if(ds == null)
-            {
-                DisplayError(objTrans.ErrorMessage);
-                return;
-            }
-            rptViewer.ProcessingMode = ProcessingMode.Local;
-            string sFilename = objTrans.FileName;
-            rptViewer.LocalReport.ReportPath = Server.MapPath(sFilename);
-            rptViewer.LocalReport.DataSources.Clear();
-            rptViewer.LocalReport.DataSources.Add(new ReportDataSource(objTrans.DatasetName, ds.Tables[0]));
-            rptViewer.DocumentMapCollapsed = true;
+            DTO dTO = new DTO();
+            string dateRange = daterange_hidden.Value;
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("@startDate", dateRange.Split('-')[0]);
+            param.Add("@endDate", dateRange.Split('-')[1]);
+            var data = dTO.RetrieveAsDataTable(reportCmd, param);
 
-            rptViewer.AsyncRendering = true;
-            rptViewer.SizeToReportContent = true;
-            rptViewer.ZoomMode = ZoomMode.FullPage;
-            rptViewer.LocalReport.EnableExternalImages = true;
+            var htmlTable = dTO.ConvertDataTableToHTML(data);
+            placeholder1.Controls.Add(new Literal { Text = htmlTable });
+            tableLoaded = true;
 
-            string sTitle = objTrans.ReportTile + " (" + getMonthName(int.Parse(ddlMonth.SelectedValue)) + " " + ddlYear.SelectedValue + ")";
-            ReportParameter param = new ReportParameter("parmTitle", sTitle);
-            rptViewer.LocalReport.SetParameters(param);
-            rptViewer.LocalReport.Refresh();
+            //objTrans.ReportID = int.Parse(ddlReport.SelectedValue);
+            //if(objTrans.getReport()==false)
+            //{
+            //    DisplayError(objTrans.ErrorMessage);
+            //    return;
+            //}
+
+            //DataSet ds = objTrans.getMonthlyReportData(int.Parse(ddlMonth.SelectedValue), int.Parse(ddlYear.SelectedValue));
+            //if(ds == null)
+            //{
+            //    DisplayError(objTrans.ErrorMessage);
+            //    return;
+            //}
+            //rptViewer.ProcessingMode = ProcessingMode.Local;
+            //string sFilename = objTrans.FileName;
+            //rptViewer.LocalReport.ReportPath = Server.MapPath(sFilename);
+            //rptViewer.LocalReport.DataSources.Clear();
+            //rptViewer.LocalReport.DataSources.Add(new ReportDataSource(objTrans.DatasetName, ds.Tables[0]));
+            //rptViewer.DocumentMapCollapsed = true;
+
+            //rptViewer.AsyncRendering = true;
+            //rptViewer.SizeToReportContent = true;
+            //rptViewer.ZoomMode = ZoomMode.FullPage;
+            //rptViewer.LocalReport.EnableExternalImages = true;
+
+            //string sTitle = objTrans.ReportTile + " (" + getMonthName(int.Parse(ddlMonth.SelectedValue)) + " " + ddlYear.SelectedValue + ")";
+            //ReportParameter param = new ReportParameter("parmTitle", sTitle);
+            //rptViewer.LocalReport.SetParameters(param);
+            //rptViewer.LocalReport.Refresh();
         }
         catch (Exception ex)
         {
             DisplayError(ex.Message);
         }
     }
+
+
     private string getMonthName(int iMonth)
     {
         try
