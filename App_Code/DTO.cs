@@ -30,7 +30,7 @@ public class DTO
 
     public void PopulateReportField(ref DropDownList objList)
     {
-        SqlCommand _command = new SqlCommand("select SPECIFIC_NAME 'Name', REPLACE(REPLACE(SPECIFIC_NAME, '_',' '),'sp ', ' ') 'f_name' from information_schema.routines where routine_type = 'PROCEDURE'");
+        SqlCommand _command = new SqlCommand("Select SPECIFIC_NAME 'Name', REPLACE(REPLACE(SPECIFIC_NAME, '_',' '),'sp ', ' ') 'f_name' from information_schema.routines where routine_type = 'PROCEDURE' order by SPECIFIC_NAME");
         var data = RetrieveAsDataTable(_command);
         objList.DataSource = data.DefaultView;
         objList.DataTextField = "f_name";

@@ -4,6 +4,7 @@ using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.Reporting.WebForms;
+using Newtonsoft.Json;
 using PIDSLibrary;
 
 public partial class _ReportMonthly : Page
@@ -11,6 +12,8 @@ public partial class _ReportMonthly : Page
     TransactionModel objTrans = new TransactionModel();
 
     public bool tableLoaded = false;
+    public bool loadChart = false;
+    public string functionToLoad = "";
 
     private void DisplaySuccess(String sMessage)
     {
@@ -62,7 +65,7 @@ public partial class _ReportMonthly : Page
     {
         try
         {
-            if(Page.IsPostBack==false)
+            if (Page.IsPostBack == false)
             {
                 //objTrans.PopulateLists(ref ddlYear, "GET_YEAR");
                 //objTrans.PopulateLists(ref ddlMonth, "GET_MONTH");
@@ -71,9 +74,9 @@ public partial class _ReportMonthly : Page
                 //objTrans.PopulateLists(ref ddlReport, "GET_REPORT_MONTHLY");
                 new DTO().PopulateReportField(ref ddlReport);
             }
-             
+
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             DisplayError(ex.Message);
         }
@@ -95,35 +98,14 @@ public partial class _ReportMonthly : Page
             placeholder1.Controls.Add(new Literal { Text = htmlTable });
             tableLoaded = true;
 
-            //objTrans.ReportID = int.Parse(ddlReport.SelectedValue);
-            //if(objTrans.getReport()==false)
-            //{
-            //    DisplayError(objTrans.ErrorMessage);
-            //    return;
-            //}
+            var chartData = GenerateChartData(data);
+            if (chartData != null)
+            {
+                loadChart = true;
+                //functionToLoad = "build_side_by_side_column_chart";
+                //chart_data_hidden.Value = JsonConvert.SerializeObject(chartData);
+            }
 
-            //DataSet ds = objTrans.getMonthlyReportData(int.Parse(ddlMonth.SelectedValue), int.Parse(ddlYear.SelectedValue));
-            //if(ds == null)
-            //{
-            //    DisplayError(objTrans.ErrorMessage);
-            //    return;
-            //}
-            //rptViewer.ProcessingMode = ProcessingMode.Local;
-            //string sFilename = objTrans.FileName;
-            //rptViewer.LocalReport.ReportPath = Server.MapPath(sFilename);
-            //rptViewer.LocalReport.DataSources.Clear();
-            //rptViewer.LocalReport.DataSources.Add(new ReportDataSource(objTrans.DatasetName, ds.Tables[0]));
-            //rptViewer.DocumentMapCollapsed = true;
-
-            //rptViewer.AsyncRendering = true;
-            //rptViewer.SizeToReportContent = true;
-            //rptViewer.ZoomMode = ZoomMode.FullPage;
-            //rptViewer.LocalReport.EnableExternalImages = true;
-
-            //string sTitle = objTrans.ReportTile + " (" + getMonthName(int.Parse(ddlMonth.SelectedValue)) + " " + ddlYear.SelectedValue + ")";
-            //ReportParameter param = new ReportParameter("parmTitle", sTitle);
-            //rptViewer.LocalReport.SetParameters(param);
-            //rptViewer.LocalReport.Refresh();
         }
         catch (Exception ex)
         {
@@ -131,13 +113,12 @@ public partial class _ReportMonthly : Page
         }
     }
 
-
     private string getMonthName(int iMonth)
     {
         try
         {
             string sMonth = "";
-            switch(iMonth)
+            switch (iMonth)
             {
                 case 1:
                     sMonth = "January";
@@ -184,19 +165,67 @@ public partial class _ReportMonthly : Page
             return null;
         }
     }
-    //public void BindEnumToListControls(Type enumType, ListControl listcontrol)
-    //{
-    //    string[] names = Enum.GetNames(enumType);
-    //    listcontrol.DataSource = names.Select((key, value) =>
-    //    new { key, value }).ToDictionary(x => x.key, x => x.value + 1);
-    //    listcontrol.DataTextField = "Key";
-    //    listcontrol.DataValueField = "Value";
-    //    listcontrol.DataBind();
-    //}
-    //protected void ddlCharType_SelectedIndexChanged(object sender, EventArgs e)
-    //{
-    //    this.Chart1.Series["Series1"].ChartType = (SeriesChartType)Enum.Parse(typeof(SeriesChartType), ddlCharType.SelectedItem.Text);
-    //}
+
+    private dynamic GenerateChartData(DataTable data)
+    {
+        HighChartUtils hg = new HighChartUtils();
+        dynamic chartdata;
+        loadChart = false;
+        switch (ddlReport.SelectedValue)
+        {
+            case "sp_CRUDE_OIL_EXPORTS_DIFFERENCE_WITH_PREVIOUS_MONTH_BY_TERMINAL_QTY_IN_NET_BBLS":
+                chartdata = hg.Generate_Table_Of_Difference(data, "CRUDE OIL EXPORTS DIFFERENCE BETWEEN {0} AND {1} BY TERMINAL –QTY IN NET BBLS");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_VOLUME_OF_CRUDE_OIL_DIFFERENCE_INSPECTED_BETWEEN_CURRENT_MONTH_AND_PREVIOUS_MONTH":
+                chartdata = hg.Generate_Table_Of_Difference(data, "VOLUME OF CRUDE OIL DIFFERENCE INSPECTED BETWEEN {0} AND {1} BY TERMINAL");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_VOLUME_OF_CRUDE_OIL_DIFFERENCE_INSPECTED_BETWEEN_CURRENT_MONTH_AND_MONTH_IN_PREVIOUS_YEAR":
+                chartdata = hg.Generate_Table_Of_Difference(data, "VOLUME OF CRUDE OIL DIFFERENCE INSPECTED BETWEEN {0} AND {1} BY TERMINAL");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_TOTAL_NUMBER_OF_VESSELS_DIFFERENCE_BETWEEN_CURRENT_MONTH_AND_PREVIOUS_YEAR":
+                chartdata = hg.Generate_Table_Of_Difference(data, "TOTAL NUMBER OF VESSELS INSPECTED BETWEEN {0} AND {1} BY TERMINAL");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_TOTAL_NUMBER_OF_VESSELS_DIFFERENCE_BETWEEN_CURRENT_MONTH_AND_PREVIOUS_MONTH":
+                chartdata = hg.Generate_Table_Of_Difference(data, "TOTAL NUMBER OF VESSELS INSPECTED BETWEEN {0} AND {1} BY TERMINAL");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_DIFFERENCE_BETWEEN_CURRENT_MONTH_AND_PREVIOUS_MONTH_BY_DESTINATION_QTY_IN_NET_BARREL":
+                chartdata = hg.Generate_Table_Of_Difference(data, "CRUDE OIL EXPORTS INSPECTED DIFFERENCE BETWEEN {0} AND {1} BY Destination – QTY IN NET BARRELS");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_BY_NXP_ISSUING_BANKS_QTY_IN_NETBARRELS":
+                chartdata = hg.Generate_Simple_Array(data, "CRUDE OIL EXPORTS INSPECTED BY NXP ISSUING BANKS– QUANTITY IN NET BARRELS");
+                loadChart = true;
+                functionToLoad = "Build_Pie_Chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_FOB_VALUES_OF_CRUDE_OIL_EXPORTS_INSPECTED_BY_TERMINAL_IN_USD":
+                chartdata = hg.Generate_Table_Of_Difference(data, "FOB VALUES OF CRUDE OIL EXPORTS INSPECTED DIFFERENCE BETWEEN {0} and {1} BY TERMINAL (IN USD)");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            default:
+                return null;
+
+        }
+    }
 
 
 }
