@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 public class DTO
 {
     IDbConnection _connection;
-    
+
     public DTO()
     {
         _connection = new SqlConnection();
@@ -22,15 +22,19 @@ public class DTO
         {
             _connection.ConnectionString = ConfigurationManager.ConnectionStrings["mssqlConnectionString"].ConnectionString;
         }
-        else if(_db == "odbc")
+        else if (_db == "odbc")
         {
             _connection.ConnectionString = ConfigurationManager.ConnectionStrings["odbcConnectionString"].ConnectionString;
         }
     }
 
-    public void PopulateReportField(ref DropDownList objList)
+    public void PopulateReportField(ref DropDownList objList, string report_type)
     {
-        SqlCommand _command = new SqlCommand("Select SPECIFIC_NAME 'Name', REPLACE(REPLACE(SPECIFIC_NAME, '_',' '),'sp ', ' ') 'f_name' from information_schema.routines where routine_type = 'PROCEDURE' order by SPECIFIC_NAME");
+        SqlCommand _command = new SqlCommand(); //("Select SPECIFIC_NAME 'Name', REPLACE(REPLACE(SPECIFIC_NAME, '_',' '),'sp ', ' ') 'f_name' from information_schema.routines where routine_type = 'PROCEDURE' order by SPECIFIC_NAME");
+        _command.CommandText = "sp_GET_ALL_REPORT";
+        _command.CommandType = CommandType.StoredProcedure;
+        _command.Parameters.Add("@reportType", SqlDbType.NVarChar).Value = report_type;
+
         var data = RetrieveAsDataTable(_command);
         objList.DataSource = data.DefaultView;
         objList.DataTextField = "f_name";
@@ -60,15 +64,15 @@ public class DTO
         return html;
     }
 
-    public DataTable RetrieveAsDataTable(string _commandText, Dictionary<string,string> param)
+    public DataTable RetrieveAsDataTable(string _commandText, Dictionary<string, string> param)
     {
         SqlCommand _command = new SqlCommand();
         _command.CommandText = _commandText;
         _command.CommandType = CommandType.StoredProcedure;
-        foreach(var p in param)
+        foreach (var p in param)
         {
             _command.Parameters.Add(p.Key, SqlDbType.Date).Value = p.Value.Trim();
-        } 
+        }
 
         return RetrieveAsDataTable(_command);
     }
@@ -80,7 +84,7 @@ public class DTO
         {
             using (var conn = _connection)
             {
-                SqlDataAdapter da = new SqlDataAdapter(); 
+                SqlDataAdapter da = new SqlDataAdapter();
                 _command.Connection = conn;
                 da.SelectCommand = (SqlCommand)_command;
 

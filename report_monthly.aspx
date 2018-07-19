@@ -69,9 +69,13 @@
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="foot" runat="Server">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/daterangepicker.min.js"></script>
+    <link href="js/daterangepicker.css" rel="stylesheet" />
+
+    <%--<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />--%>
 
     <script src="plugins/datatables/Buttons-1.0.3/js/buttons.print.min.js"></script>
     <script src="plugins/datatables/Buttons-1.0.3/js/dataTables.buttons.min.js"></script>

@@ -72,7 +72,7 @@ public partial class _ReportMonthly : Page
                 //ddlYear.SelectedValue = DateTime.Now.Year.ToString();
                 //ddlMonth.SelectedValue = DateTime.Now.Month.ToString();
                 //objTrans.PopulateLists(ref ddlReport, "GET_REPORT_MONTHLY");
-                new DTO().PopulateReportField(ref ddlReport);
+                new DTO().PopulateReportField(ref ddlReport, "MONTH");
             }
 
         }

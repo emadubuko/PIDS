@@ -1,13 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.Reporting.WebForms;
 using PIDSLibrary;
+using Newtonsoft.Json;
 
 public partial class _ReportQuarterly : Page
 {
     TransactionModel objTrans = new TransactionModel();
+    public bool tableLoaded = false;
+    public bool loadChart = false;
+    public string functionToLoad = "";
 
     private void DisplaySuccess(String sMessage)
     {
@@ -57,14 +63,30 @@ public partial class _ReportQuarterly : Page
     }
     protected void Page_Load(object sender, EventArgs e)
     {
+        List<ListItem> quarters = new List<ListItem>();
+        quarters.Add(new ListItem { Text = "Jan - Mar", Value = "Jan - Mar" });
+        quarters.Add(new ListItem { Text = "Apr - Jun", Value = "Apr - Jun" });
+        quarters.Add(new ListItem { Text = "Jul - Sep", Value = "Jul - Sep" });
+        quarters.Add(new ListItem { Text = "Oct - Dec", Value = "Oct - Dec" });
+
+        List<ListItem> years = new List<ListItem>();
+        years.Add(new ListItem { Text = DateTime.Now.Year.ToString(), Value = DateTime.Now.Year.ToString(), Selected = true, });
+        years.Add(new ListItem { Text = DateTime.Now.AddYears(-1).Year.ToString(), Value = DateTime.Now.AddYears(-1).Year.ToString() });
+        years.Add(new ListItem { Text = DateTime.Now.AddYears(-2).Year.ToString(), Value = DateTime.Now.AddYears(-2).Year.ToString() });
         try
         {
             if(Page.IsPostBack==false)
             {
-                objTrans.PopulateLists(ref ddlYear, "GET_YEAR");
-                objTrans.PopulateLists(ref ddlQuarter, "GET_QUARTER");
-                ddlYear.SelectedValue = DateTime.Now.Year.ToString();
-                objTrans.PopulateLists(ref ddlReport, "GET_REPORT_QUARTERLY");
+                ddlYear.DataTextField = "Text";
+                ddlYear.DataValueField = "Value";
+                ddlYear.DataSource = years;
+                ddlYear.DataBind();
+
+                ddlQuarter.DataTextField = "Text";
+                ddlQuarter.DataValueField = "Value";
+                ddlQuarter.DataSource = quarters;
+                ddlQuarter.DataBind();                
+                new DTO().PopulateReportField(ref ddlReport, "QUARTER");
             }
         }
         catch(Exception ex)
@@ -76,64 +98,50 @@ public partial class _ReportQuarterly : Page
     {
         try
         {
-            objTrans.ReportID = int.Parse(ddlReport.SelectedValue);
-            if(objTrans.getReport()==false)
-            {
-                DisplayError(objTrans.ErrorMessage);
-                return;
-            }
+            string reportCmd = ddlReport.SelectedValue;
 
-            DataSet ds = objTrans.getQuarterlyReportData( 
-                getStartDate(int.Parse(ddlQuarter.SelectedValue), ddlYear.SelectedValue), 
-                getEndDate(int.Parse(ddlQuarter.SelectedValue), ddlYear.SelectedValue));
-            if(ds == null)
-            {
-                DisplayError(objTrans.ErrorMessage);
-                return;
-            }
-            rptViewer.ProcessingMode = ProcessingMode.Local;
-            string sFilename = objTrans.FileName;
-            rptViewer.LocalReport.ReportPath = Server.MapPath(sFilename);
-            rptViewer.LocalReport.DataSources.Clear();
-            rptViewer.LocalReport.DataSources.Add(new ReportDataSource(objTrans.DatasetName, ds.Tables[0]));
-            rptViewer.DocumentMapCollapsed = true;
+            DTO dTO = new DTO();
+            Dictionary<string, string> param = GetStartDate(ddlQuarter.SelectedValue, ddlYear.SelectedValue);
+            var data = dTO.RetrieveAsDataTable(reportCmd, param);
 
-            rptViewer.AsyncRendering = true;
-            rptViewer.SizeToReportContent = true;
-            rptViewer.ZoomMode = ZoomMode.FullPage;
-            rptViewer.LocalReport.EnableExternalImages = true;
+            var htmlTable = dTO.ConvertDataTableToHTML(data);
+            placeholder1.Controls.Add(new Literal { Text = htmlTable });
+            tableLoaded = true;
 
-            string sTitle = objTrans.ReportTile + " (" + getQuarterName(int.Parse(ddlQuarter.SelectedValue)) + " " + ddlYear.SelectedValue + ")";
-            ReportParameter param = new ReportParameter("parmTitle", sTitle);
-            rptViewer.LocalReport.SetParameters(param);
-            rptViewer.LocalReport.Refresh();
+             GenerateChartData(data);
+            
+
         }
         catch (Exception ex)
         {
             DisplayError(ex.Message);
         }
     }
-    private string getQuarterName(int iQuarter)
+    private Dictionary<string, string> GetStartDate(string iQuarter, string sYear)
     {
         try
         {
-            string sQuarter = "";
-            switch(iQuarter)
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            switch (iQuarter)
             {
-                case 1:
-                    sQuarter = "First Quarter";
+                case "Jan - Mar":
+                    param.Add("@startDate", DateTime.Parse("01/01/" + sYear).ToShortDateString());
+                    param.Add("@endDate", DateTime.ParseExact("31/03/" + sYear,"dd/MM/yyyy", CultureInfo.InvariantCulture).ToShortDateString());
                     break;
-                case 2:
-                    sQuarter = "Second Quarter";
+                case "Apr - Jun":
+                    param.Add("@startDate", DateTime.ParseExact("01/04/" + sYear, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToShortDateString());
+                    param.Add("@endDate", DateTime.ParseExact("30/06/" + sYear, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToShortDateString());
                     break;
-                case 3:
-                    sQuarter = "Third Quarter";
+                case "Jul - Sep":
+                    param.Add("@startDate", DateTime.ParseExact("01/07/" + sYear, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToShortDateString());
+                    param.Add("@endDate", DateTime.ParseExact("30/09/" + sYear, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToShortDateString());
                     break;
-                case 4:
-                    sQuarter = "Fourth Quarter";
+                case "Oct - Dec":
+                    param.Add("@startDate", DateTime.ParseExact("01/10/" + sYear, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToShortDateString());
+                    param.Add("@endDate", DateTime.ParseExact("31/12/" + sYear, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToShortDateString());
                     break;
             }
-            return sQuarter;
+            return param;
         }
         catch (Exception ex)
         {
@@ -141,62 +149,65 @@ public partial class _ReportQuarterly : Page
             return null;
         }
     }
-    private DateTime getStartDate(int iQuarter, string sYear)
+
+    private dynamic GenerateChartData(DataTable data)
     {
-        try
+        HighChartUtils hg = new HighChartUtils();
+        dynamic chartdata;
+        loadChart = false;
+        switch (ddlReport.SelectedValue)
         {
-            DateTime dStartDate = DateTime.Now.Date;
-            switch (iQuarter)
-            {
-                case 1:
-                    dStartDate = DateTime.Parse("1/1/" + sYear);
-                    break;
-                case 2:
-                    dStartDate = DateTime.Parse("4/1/" + sYear);
-                    break;
-                case 3:
-                    dStartDate = DateTime.Parse("7/1/" + sYear);
-                    break;
-                case 4:
-                    dStartDate = DateTime.Parse("10/1/" + sYear);
-                    break;
-            }
-            return dStartDate;
-        }
-        catch (Exception ex)
-        {
-            DisplayError(ex.Message);
-            return DateTime.Now.Date;
+            case "sp_CRUDE_OIL_EXPORTS_DIFFERENCE_WITH_PREVIOUS_MONTH_BY_TERMINAL_QTY_IN_NET_BBLS":
+                chartdata = hg.Generate_Table_Of_Difference(data, "CRUDE OIL EXPORTS DIFFERENCE BETWEEN {0} AND {1} BY TERMINAL –QTY IN NET BBLS");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_VOLUME_OF_CRUDE_OIL_DIFFERENCE_INSPECTED_BETWEEN_CURRENT_MONTH_AND_PREVIOUS_MONTH":
+                chartdata = hg.Generate_Table_Of_Difference(data, "VOLUME OF CRUDE OIL DIFFERENCE INSPECTED BETWEEN {0} AND {1} BY TERMINAL");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_VOLUME_OF_CRUDE_OIL_DIFFERENCE_INSPECTED_BETWEEN_CURRENT_MONTH_AND_MONTH_IN_PREVIOUS_YEAR":
+                chartdata = hg.Generate_Table_Of_Difference(data, "VOLUME OF CRUDE OIL DIFFERENCE INSPECTED BETWEEN {0} AND {1} BY TERMINAL");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_TOTAL_NUMBER_OF_VESSELS_DIFFERENCE_BETWEEN_CURRENT_MONTH_AND_PREVIOUS_YEAR":
+                chartdata = hg.Generate_Table_Of_Difference(data, "TOTAL NUMBER OF VESSELS INSPECTED BETWEEN {0} AND {1} BY TERMINAL");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_TOTAL_NUMBER_OF_VESSELS_DIFFERENCE_BETWEEN_CURRENT_MONTH_AND_PREVIOUS_MONTH":
+                chartdata = hg.Generate_Table_Of_Difference(data, "TOTAL NUMBER OF VESSELS INSPECTED BETWEEN {0} AND {1} BY TERMINAL");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_DIFFERENCE_BETWEEN_CURRENT_MONTH_AND_PREVIOUS_MONTH_BY_DESTINATION_QTY_IN_NET_BARREL":
+                chartdata = hg.Generate_Table_Of_Difference(data, "CRUDE OIL EXPORTS INSPECTED DIFFERENCE BETWEEN {0} AND {1} BY Destination – QTY IN NET BARRELS");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_BY_NXP_ISSUING_BANKS_QTY_IN_NETBARRELS":
+                chartdata = hg.Generate_Simple_Array(data, "CRUDE OIL EXPORTS INSPECTED BY NXP ISSUING BANKS– QUANTITY IN NET BARRELS");
+                loadChart = true;
+                functionToLoad = "Build_Pie_Chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_FOB_VALUES_OF_CRUDE_OIL_EXPORTS_INSPECTED_BY_TERMINAL_IN_USD":
+                chartdata = hg.Generate_Table_Of_Difference(data, "FOB VALUES OF CRUDE OIL EXPORTS INSPECTED DIFFERENCE BETWEEN {0} and {1} BY TERMINAL (IN USD)");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            default:
+                return null;
+
         }
     }
-    private DateTime getEndDate(int iQuarter, string sYear)
-    {
-        try
-        {
-            DateTime dEndDate = DateTime.Now.Date;
-            switch (iQuarter)
-            {
-                case 1:
-                    dEndDate = DateTime.Parse("3/31/" + sYear);
-                    break;
-                case 2:
-                    dEndDate = DateTime.Parse("6/30/" + sYear);
-                    break;
-                case 3:
-                    dEndDate = DateTime.Parse("9/30/" + sYear);
-                    break;
-                case 4:
-                    dEndDate = DateTime.Parse("12/31/" + sYear);
-                    break;
-            }
-            return dEndDate;
-        }
-        catch (Exception ex)
-        {
-            DisplayError(ex.Message);
-            return DateTime.Now.Date;
-        }
-    }
-
-
 }

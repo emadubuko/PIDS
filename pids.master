@@ -231,10 +231,11 @@
                                     </asp:HyperLink>
                                 </li>
                                 <li>
-                                    <asp:HyperLink ID="HyperLink11" runat="server" NavigateUrl="#">
+                                    <asp:HyperLink ID="HyperLink11" runat="server" NavigateUrl="report_yearly.aspx">
                                             <i class=""></i><span class="text-capitalize text-nowrap"> Yearly Reports</span>
                                     </asp:HyperLink>
                                 </li>
+                                
                                 <li>
                                     <asp:HyperLink ID="HyperLink12" runat="server" NavigateUrl="~/differential-reports">
                                             <i class=""></i><span class="text-capitalize text-nowrap"> Differential Reports</span>
