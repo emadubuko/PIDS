@@ -44,6 +44,7 @@ function BuildDonut(data) { //id, title, data_array) {
             renderTo: data.contanerid,
             type: 'pie'
         },
+        credits: false,
         title: {
             text: title,
             style: {
@@ -83,13 +84,14 @@ function BuildDonut(data) { //id, title, data_array) {
 }
 
 function Build_Pie_Chart(data) { //id, title, data_array) {
-    var chart = Highcharts.chart('container', {
+    Highcharts.chart('container', {
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
             type: 'pie'
         },
+        credits : false,
         title: {
             text: data.title,
             style: {
@@ -119,7 +121,7 @@ function Build_Pie_Chart(data) { //id, title, data_array) {
                 }
             }]
         },
-        //colors: ['grey', '#F2784B', '#08bf0f'],//'#1ba39c'
+        colors: pieColors //['grey', '#F2784B', '#08bf0f'],//'#1ba39c'
     });
 }
 
@@ -129,6 +131,7 @@ function Build_Pos_Neg_Chart(data) { //id, title, categories, series_data, max) 
         chart: {
             type: 'bar'
         },
+        credits: false,
         title: {
             text: data.title,
             style: {
@@ -194,6 +197,7 @@ function build_drilldown_bar_chart(data) {//id, title, yaxistitle, principal_dat
                 fontSize: '12px'
             }
         },
+        credits: false,
         subtitle: {
             text: 'Click the columns to drill down'
         },
@@ -250,6 +254,7 @@ function build_Column_chart(data) { //id, title, yaxistitle, xaxisCategory, data
                 fontSize: '12px'
             }
         },
+        credits: false,
         xAxis: {
             categories: data.xaxisCategory,
             crosshair: true
@@ -305,6 +310,7 @@ function build_bar_chart_dual_axis(data) {//container_id, title, y1_title, y2_ti
                 fontSize: '12px'
             }
         },
+        credits: false,
         xAxis: [{
             categories: data.xaxisCategory,
             crosshair: true
@@ -373,7 +379,7 @@ function build_trend_chart(data) { //container_id, title, yAxistitle, xaxisCateg
                 fontSize: '12px'
             }
         },
-
+        credits: false,
         yAxis: {
             title: {
                 text: data.yAxistitle
@@ -423,6 +429,7 @@ function build_side_by_side_column_chart(data) { //container_id, title, yAxistit
         title: {
             text: data.title
         },
+        credits: false,
         xAxis: {
             categories: data.xaxisCategory,
             crosshair: true
@@ -489,6 +496,7 @@ function build_stacked_bar_with_percent(data) { //container_id, title, xaxis_cat
         title: {
             text: data.title
         },
+        credits: false,
         xAxis: {
             categories: data.xaxis_categories
         },

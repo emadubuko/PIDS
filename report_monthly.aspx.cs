@@ -67,10 +67,10 @@ public partial class _ReportMonthly : Page
         {
             if (Page.IsPostBack == false)
             {
-                //objTrans.PopulateLists(ref ddlYear, "GET_YEAR");
-                //objTrans.PopulateLists(ref ddlMonth, "GET_MONTH");
-                //ddlYear.SelectedValue = DateTime.Now.Year.ToString();
-                //ddlMonth.SelectedValue = DateTime.Now.Month.ToString();
+                objTrans.PopulateLists(ref ddlYear, "GET_YEAR");
+                objTrans.PopulateLists(ref ddlMonth, "GET_MONTH");
+                ddlYear.SelectedValue = DateTime.Now.Year.ToString();
+                ddlMonth.SelectedValue = DateTime.Now.Month.ToString();
                 //objTrans.PopulateLists(ref ddlReport, "GET_REPORT_MONTHLY");
                 new DTO().PopulateReportField(ref ddlReport, "MONTH");
             }
@@ -90,8 +90,10 @@ public partial class _ReportMonthly : Page
             DTO dTO = new DTO();
             string dateRange = daterange_hidden.Value;
             Dictionary<string, string> param = new Dictionary<string, string>();
-            param.Add("@startDate", dateRange.Split('-')[0]);
-            param.Add("@endDate", dateRange.Split('-')[1]);
+            param.Add("@startDate", ddlYear.SelectedValue + "/" + ddlMonth.SelectedValue + "/01");
+            param.Add("@endDate", ddlYear.SelectedValue + "/" + ddlMonth.SelectedValue + "/" + GetLastDayOfMonth(ddlYear.SelectedValue, ddlMonth.SelectedValue));
+            //param.Add("@startDate", dateRange.Split('-')[0]);
+            //param.Add("@endDate", dateRange.Split('-')[1]);
             var data = dTO.RetrieveAsDataTable(reportCmd, param);
 
             var htmlTable = dTO.ConvertDataTableToHTML(data);
@@ -111,6 +113,11 @@ public partial class _ReportMonthly : Page
         {
             DisplayError(ex.Message);
         }
+    }
+
+    int GetLastDayOfMonth(string year, string month)
+    {
+        return DateTime.DaysInMonth(Convert.ToInt32(year), Convert.ToInt32(month));
     }
 
     private string getMonthName(int iMonth)
@@ -166,6 +173,7 @@ public partial class _ReportMonthly : Page
         }
     }
 
+    
     private dynamic GenerateChartData(DataTable data)
     {
         HighChartUtils hg = new HighChartUtils();
@@ -173,7 +181,31 @@ public partial class _ReportMonthly : Page
         loadChart = false;
         switch (ddlReport.SelectedValue)
         {
+            case "sp_EXPORTS_COVERED":
+                chartdata = hg.Generate_Simple_Array(data, "EXPORTS COVERED, Terminal BY NET BARREL", 0, 2);
+                loadChart = true;
+                functionToLoad = "Build_Pie_Chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_BY_TERMINAL_QTY_IN_NET_BARREL":
+                chartdata = hg.Generate_Simple_Array(data, "CRUDE OIL EXPORTS INSPECTED BY TERMINAL QTY IN NET BARREL");
+                loadChart = true;
+                functionToLoad = "Build_Pie_Chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
             case "sp_CRUDE_OIL_EXPORTS_DIFFERENCE_WITH_PREVIOUS_MONTH_BY_TERMINAL_QTY_IN_NET_BBLS":
+                chartdata = hg.Generate_Table_Of_Difference(data, "CRUDE OIL EXPORTS DIFFERENCE BETWEEN {0} AND {1} BY TERMINAL –QTY IN NET BBLS");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_FOB_VALUES_OF_CRUDE_OIL_EXPORTS_INSPECTED_BY_DESTINATIONS_IN_USD":
+                chartdata = hg.Generate_Table_Of_Difference(data, "FOB VALUES OF CRUDE OIL EXPORTS INSPECTED DIFFERENCE BETWEEN {0} AND {1} BY DESTINATIONS IN USD");
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_CRUDE_OIL_EXPORTS_DIFFERENCE_WITH_PREVIOUS_MONTH_IN_YEAR_BEFORE_BY_TERMINAL_QTY_IN_NET_BBLS":
                 chartdata = hg.Generate_Table_Of_Difference(data, "CRUDE OIL EXPORTS DIFFERENCE BETWEEN {0} AND {1} BY TERMINAL –QTY IN NET BBLS");
                 loadChart = true;
                 functionToLoad = "build_side_by_side_column_chart";
@@ -221,11 +253,53 @@ public partial class _ReportMonthly : Page
                 functionToLoad = "build_side_by_side_column_chart";
                 chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
                 return chartdata;
+            case "sp_TERMINAL_QUANTITY_ANALYSIS":
+                chartdata = hg.Generate_Table_Of_Difference(data, "TERMINAL QUANTITY ANALYSIS", 1, 2, 3);
+                loadChart = true;
+                functionToLoad = "build_side_by_side_column_chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_BY_EXPORTERS_QUANTITY_IN_NET_BARRELS":
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_BY_VESSELS_QTY_IN_NET_BARRELS":
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_BY_DESTINATIONS_QTY_IN_NET_BARRELS":
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_BY_TRADERS_QUANTITY_IN_NET_BARRELS":
+                var _2nd_last_column = data.Columns.Count - 2;
+                chartdata = hg.Generate_Simple_Array(data, ddlReport.SelectedItem.ToString() + " - " + ddlMonth.SelectedItem.ToString().ToUpper() + ", " + ddlYear.SelectedItem, 0, _2nd_last_column); //"CRUDE OIL EXPORTS INSPECTED " + ddlMonth.SelectedItem.ToString().ToUpper() + ", " + ddlYear.SelectedItem + " BY EXPORTERS QUANTITY IN NET BARRELS", 0, _2nd_last_column);
+                loadChart = true;
+                functionToLoad = "Build_Pie_Chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_TOP_5_DESTINATIONS_BY_QUANTITY_IN_NET_BARRELS":
+            case "sp_TOP_5_DESTINATIONS_CRUDE_OIL_LIFTED_BY_FOB_VALUES_IN_USD":
+            case "sp_TOP_5_EXPORTERS_BY_QTY_IN_NET_BARRELS":
+            case "sp_TOP_5_VESSELS_ATTENDED_BY_QTY_IN_NET_BARRELS":
+            case "sp_TOP_5_VESSELS_CRUDE_OIL_LIFTED_BY_FOB_VALUES_IN_USD":
+            case "sp_TOP_5_EXPORTERS_CRUDE_OIL_LIFTED_BY_FOB_VALUE_IN_USD":
+            case "sp_TOP_5_TRADERS_CRUDE_OIL_LIFTED_BY_FOB_VALUE_IN_USD":
+            case "sp_TOP_5_TRADERS_BY_QTY_IN_NET_BARRELS":
+            case "sp_TOP_5_NXP_ISSUING_BANKS_CRUDE_OIL_LIFTED_BY_FOB_VALUES_IN_USD":
+                chartdata = hg.Generate_Simple_Array(data, ddlReport.SelectedItem.ToString() + " - " + ddlMonth.SelectedItem.ToString().ToUpper() + ", " + ddlYear.SelectedItem);
+                loadChart = true;
+                functionToLoad = "Build_Pie_Chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_BY_TERMINALS_FOB_VALUES_IN_USD":
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_BY_EXPORTERS_FOB_VALUES_IN_USD":
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_BY_VESSELS_FOB_VALUES_IN_USD":
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_BY_TRADERS_FOB_VALUES_IN_USD":
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_BY_PRODUCTS_FOB_VALUES_IN_USD":
+            case "sp_CRUDE_OIL_EXPORTS_INSPECTED_BY_NXP_ISSUING_BANKS_FOB_VALUES_IN_USD":
+                chartdata = hg.Generate_Simple_Array(data, ddlMonth.SelectedItem.ToString().ToUpper() + ", " + ddlYear.SelectedItem + " - " + ddlReport.SelectedItem.ToString(), 0, 2);
+                loadChart = true;
+                functionToLoad = "Build_Pie_Chart";
+                chart_data_hidden.Value = JsonConvert.SerializeObject(chartdata);
+                return chartdata;
             default:
                 return null;
 
         }
     }
+    
 
 
 }
