@@ -176,8 +176,26 @@ public class DTO
         //add header row
         html += "<thead style='background-color: #337ab7;color: #fff;'><tr>";
         for (int i = 0; i < dt.Columns.Count; i++)
-            html += "<td>" + dt.Columns[i].ColumnName + "</td>";
+            if (dt.Columns[i].DataType.Name.ToString().ToLower() == "decimal")
+            {
+                html += "<td class=' sum'>" + dt.Columns[i].ColumnName + "</td>";
+            }
+            else if ("int32,int64".Contains(dt.Columns[i].DataType.Name.ToString().ToLower()))
+            {
+                html += "<td class=' sum'>" + dt.Columns[i].ColumnName + "</td>";
+            }
+            else
+            {
+                html += "<td>" + dt.Columns[i].ColumnName + "</td>";
+            }
+        //html += "<td>" + dt.Columns[i].ColumnName + "</td>";
         html += "</tr></thead>";
+
+        //add the footer
+        html += "<tfoot><tr>";
+        for (int i = 0; i < dt.Columns.Count; i++)
+            html += "<th></th>";
+        html += "</tr></tfoot>";
 
         //add rows
         html += "<tbody>";
@@ -185,10 +203,21 @@ public class DTO
         {
             html += "<tr>";
             for (int j = 0; j < dt.Columns.Count; j++)
-                html += "<td>" + dt.Rows[i][j].ToString() + "</td>";
+                if (dt.Columns[j].DataType.Name.ToString().ToLower() == "decimal")
+                {
+                    html += "<td class=' sum'>" + string.Format("{0:N2}", dt.Rows[i][j]) + "</td>";
+                }
+                else if ("int32,int64".Contains(dt.Columns[j].DataType.Name.ToString().ToLower()))
+                {
+                    html += "<td class=' sum'>" + string.Format("{0:N0}", dt.Rows[i][j]) + "</td>";
+                }
+                else
+                {
+                    html += "<td>" + dt.Rows[i][j].ToString() + "</td>";
+                }
             html += "</tr>";
         }
-        html += "</tbody>  </table>";
+        html += "</tbody></table>";
         return html;
     }
 
